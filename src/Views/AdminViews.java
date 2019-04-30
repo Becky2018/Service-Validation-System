@@ -133,12 +133,24 @@ public class AdminViews extends JFrame {
 		ExecutorEmail.setBounds(120, 216, 272, 26);
 		contentPane.add(ExecutorEmail);
 		
-		/**
-		 *  On "Submit", send all inputs to a special ArrayList.
-		 */
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.setBounds(120, 332, 89, 23);
 		contentPane.add(btnSubmit);
+		
+		JButton btnExit = new JButton("Exit");
+		btnExit.setBounds(291, 332, 89, 23);
+		contentPane.add(btnExit);
+ 	  
+		btnExit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				setVisible(false); //you can't see me!
+				dispose(); //Destroy the JFrame object 
+			}
+		});
+		
 		DBConnection DB = new DBConnection();
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -160,5 +172,7 @@ public class AdminViews extends JFrame {
 				}
 			}
 		});
+		
+		
 	}
 }

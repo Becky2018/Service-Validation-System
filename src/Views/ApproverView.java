@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -70,23 +71,33 @@ public class ApproverView extends JFrame {
 		contentPane.add(textPane_1);
 		
 		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		
 		btnSubmit.setBounds(304, 204, 94, 29);
 		contentPane.add(btnSubmit);
-		/**
-	 	* Approver will have the option of either approving or rejecting a task.
-	 	*/
+		
 		JCheckBox approve = new JCheckBox("Approve");
 		approve.setBounds(123, 207, 93, 23);
 		contentPane.add(approve);
+	
 		
 		JCheckBox reject = new JCheckBox("Reject");
 		reject.setBounds(218, 207, 93, 23);
 		contentPane.add(reject);
-		
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			if((approve.isSelected())&&(!reject.isSelected()))
+			{
+				java.awt.EventQueue.invokeLater(new Runnable() {
+
+			        public void run() {
+			        	new MultiLogin().setVisible(true);
+			        }
+			    });
+				setVisible(false); //you can't see me!
+				dispose(); //Destroy the JFrame object
+			}
+			}
+		});
 		JLabel label_1 = new JLabel("Task Name");
 		label_1.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 		label_1.setBounds(38, 91, 61, 16);
@@ -120,35 +131,15 @@ public class ApproverView extends JFrame {
 		JComboBox task_list = new JComboBox();
 		task_list.setBounds(123, 61, 275, 20);
 		contentPane.add(task_list);
-		/**
-		* Initiate preprocess.
-	 	*/
 		Preprocess getdata =new Preprocess();
 		 ArrayList<Preprocess> result=getdata.getTask();
-		 for(Preprocess p: result)
-		 {
-			 task_list.addItem(p.getTaskType());
-			 //+"   "+p.getTaskExecutor()+"  "+p.getEvidence()
-		 }
-		/**
-	 	* Get info from executor.
-	 	*/
-		task_list.addItemListener(new ItemListener() {
-			
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				// TODO Auto-generated method stub
-				String task_type=task_list.getSelectedItem().toString();
-				for(Preprocess p: result)
-				 {
-					if(p.getTaskType().equals(task_type))
-					{
-						Executor.setText(p.getTaskExecutor());
-						Evidence_type.setText(p.getEvidence());
-						task_name.setText(task_type);
-					}
-				 }
-			}
-		});
+	      String a; 
+	          a=result.get(0).task_type;
+	    	  task_list.addItem(a);
+	    	  Evidence_type.setText(result.get(0).evidence);
+	    	 Executor.setText(result.get(0).task_executor);
+	    	 task_name.setText(result.get(0).task_type);
+	    	 
+	      
 	}
 }

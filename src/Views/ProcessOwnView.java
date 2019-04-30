@@ -132,10 +132,20 @@ public class ProcessOwnView extends JFrame {
 			        public void run() {
 			        	new MultiLogin().setVisible(true);
 			        }
+			        
 			    });
+				setVisible(false); //you can't see me!
+				dispose(); //Destroy the JFrame object
 			}
 		});
 		btnComplete.setBounds(300, 199, 117, 29);
 		contentPane.add(btnComplete);
+		
+		
+		
 	}
+	
+	
+			
+
 }
